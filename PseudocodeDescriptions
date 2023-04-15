@@ -1,0 +1,100 @@
+File 1: Here is the breakdown of the ParentDNA component:
+
+Exports: A functional component that renders a DNA sequence with a possibility of mutation.
+
+Props:
+
+mutationProbability: A number representing the probability of a mutation occurring on each DNA base pair. Defaults to 0.
+parent: A string representing the parent number, used for display purposes. Defaults to an empty string.
+dna: A string representing the DNA sequence to display. Defaults to a randomly generated DNA sequence.
+Functionality:
+
+Generates a random DNA sequence if dna prop is not provided.
+Renders a graphical representation of the DNA sequence.
+Mutates the DNA sequence based on mutationProbability prop.
+Displays the percentage of mutated base pairs.
+
+File 2: ChildDNA.jsx is a file that exports a React component called ChildDNA.
+
+The ChildDNA component takes in four props:
+
+dnaSequence: a string representing the DNA sequence of the child
+hasMutation: a boolean representing whether the child has a mutation in its DNA
+similarityToParent1: a string representing the percentage similarity of the child's DNA to its first parent's DNA
+similarityToParent2: a string representing the percentage similarity of the child's DNA to its second parent's DNA
+The ChildDNA component then renders a div with a heading "Child", and then displays the dnaSequence prop value as text. If the child has a mutation, the component displays "CHILD IS DEFORMED" in a h3 tag with a class of "deformed-text". Finally, the component displays the similarityToParent1 and similarityToParent2 values as percentages if they are not null.
+
+The purpose of this component is to display the child's DNA sequence, whether it has a mutation, and how similar it is to each of its parents.
+
+File 3: Here is the breakdown of the DNAFingerprint component:
+
+Exports: A functional component that renders a graphical representation of a DNA sequence.
+
+Props:
+
+label: A string representing the label for the DNA sequence.
+similarity: A string representing the similarity percentage of the DNA sequence to another DNA sequence.
+
+Functionality:
+
+Renders a graphical representation of the DNA sequence using colored bars.
+Calculates the similarity between the DNA sequence and another DNA sequence passed as a prop.
+Displays the similarity percentage in a label provided as a prop.
+
+File 3: Here is the breakdown of the calculateDNAFingerprintSimilarity function:
+
+Exports: A function that takes two DNA sequences as arguments and returns the similarity between them as a percentage.
+
+Arguments:
+
+sequence1: A string representing the first DNA sequence to compare.
+sequence2: A string representing the second DNA sequence to compare.
+Functionality:
+
+Compares the two DNA sequences and returns the similarity as a percentage.
+The similarity is calculated as the number of identical base pairs divided by the total number of base pairs, multiplied by 100.
+Returns null if the sequences are not the same length or if either sequence is empty.
+
+File 4: Here is the breakdown of the MutationProbability component:
+
+Exports: A functional component that renders a slider for adjusting the probability of mutation for the parent DNA.
+
+Props:
+
+value: A number representing the current value of the slider.
+onChange: A function that is called when the slider value changes. It is passed the new value as a parameter.
+
+Functionality:
+
+Renders a slider with labels indicating the minimum and maximum values.
+Displays the current value of the slider.
+Calls the onChange function with the new slider value when it is changed.
+
+File 5: Here is the breakdown of the GSS_Test_DNA component:
+
+Exports: A functional component that renders the main application UI.
+
+State:
+
+parent1: A string representing the first parent's DNA sequence. Initialized to an empty string.
+parent2: A string representing the second parent's DNA sequence. Initialized to an empty string.
+child: A string representing the child's DNA sequence. Initialized to null.
+parentSimilarity: A number representing the similarity between parent1 and parent2. Initialized to null.
+childSimilarityToParent1: A number representing the similarity between child and parent1. Initialized to null.
+childSimilarityToParent2: A number representing the similarity between child and parent2. Initialized to null.
+mutationProbability: A number representing the probability of a mutation occurring on each DNA base pair. Initialized to 0.
+
+Functions:
+
+handleGenerateChildClick: A function that generates a random DNA sequence for parent1 and parent2, sets the parent1, parent2, and parentSimilarity states, generates a child DNA sequence using ChildDNA component, sets the child, childSimilarityToParent1, and childSimilarityToParent2 states.
+
+handleMutationProbabilityChange: A function that sets the mutationProbability state to the input value.
+
+Rendering:
+
+Renders the ParentDNA component with mutationProbability of 0.1.
+Renders two instances of the ParentDNA component, one for each parent, with their respective DNA sequences.
+Renders the DNAFingerprint component with the parentSimilarity.
+Renders the ChildDNA component with the child DNA sequence and similarity information to each parent.
+Renders a button with a click handler to generate a child DNA sequence and update state accordingly.
+Renders the MutationProbability component with the current mutationProbability state.

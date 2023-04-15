@@ -1,0 +1,21 @@
+Here is a list of some common React modules that are used frequently in projects:
+
+React Router: A popular routing library for React. It allows for declarative routing and navigation in React applications.
+
+To install, run npm install react-router-dom in your project directory.
+Axios: A promise-based HTTP client for the browser and Node.js. It allows for easy handling of HTTP requests and responses.
+
+To install, run npm install axios in your project directory.
+Redux: A predictable state container for JavaScript apps. It allows for managing the state of your application in a more organized and scalable way.
+
+To install, run npm install redux in your project directory.
+React Redux: A library that provides bindings between React and Redux. It allows for easy integration of Redux with React components.
+
+To install, run npm install react-redux in your project directory.
+React Bootstrap: A library of reusable UI components built with Bootstrap. It allows for easy styling and layout of React components.
+
+To install, run npm install react-bootstrap in your project directory.
+React Icons: A library of popular icons for React. It allows for easy integration of icons into React components.
+
+To install, run npm install react-icons in your project directory.
+To install any of these modules, navigate to your project directory in the terminal and run the appropriate npm install command shown above.
