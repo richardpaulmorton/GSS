@@ -1,0 +1,4 @@
+ALTER TABLE Occupants
+ADD CONSTRAINT PK_Occupants PRIMARY KEY (ID);
+
+
