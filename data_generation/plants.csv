@@ -1,0 +1,21 @@
+name,lifecycleStages,caloriesPerLifecycle
+Alfalfa sprouts,"seed,sprouting",8,8
+Broccoli sprouts,"seed,sprouting",10,10
+Mung bean sprouts,"seed,sprouting",16,16
+Wheatgrass,"seed,sprouting",120,120
+Lettuce,"seedling,vegetative,head formation,mature,flowering,seeding",1,1,5,5,3,3
+Spinach,"seedling,vegetative,mature",1,1,7,7
+Kale,"seedling,vegetative,rosette formation,mature",2,2,7,7,33,33
+Chard,"seedling,vegetative,rosette formation,mature",2,2,5,5,7,7
+Mustard greens,"seedling,vegetative,mature",2,2,15,15
+Arugula,"seedling,vegetative,mature",2,2,5,5
+Radishes,"seedling,vegetative,mature",2,2,19,19
+Turnips,"seedling,vegetative,mature",3,3,21,21,36,36
+Carrots,"seedling,vegetative,root formation,mature",2,2,8,8,26,26,52,52
+Beets,"seedling,vegetative,root formation,mature",3,3,23,23,32,32,58,58
+Green beans,"seedling,vegetative,flowering,mature",2,2,12,12,17,17,31,31
+Peas,"seedling,vegetative,flowering,mature",2,2,35,35,70,70,125,125
+Tomatoes,"seedling,vegetative,flowering,fruiting,mature",2,2,5,5,7,7,32,32
+Peppers,"seedling,vegetative,flowering,fruiting,mature",2,2,4,4,6,6,24,24
+Cucumbers,"seedling,vegetative,flowering,fruiting,mature",2,2,4,4,8,8,16,16
+Zucchini,"seedling,vegetative,flowering,fruiting,mature",2,2,5,5,9,9,17,17
