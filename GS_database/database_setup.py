@@ -1,14 +1,35 @@
 from faker import Faker
 import pyodbc
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
 import random
 import numpy as np
+
+app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mssql+pyodbc://user:password@localhost/GSS_DB?driver=ODBC Driver 17 for SQL Server'
 
 # Connect to MS SQL Server using Windows Authentication
 server = 'NOVUS'
 database = 'GSSdb'
 username = 'Python'
 password = 'CarmackAttackPython89'
-cnxn = pyodbc.connect('DRIVER={ODBC Driver 18 for SQL Server};SERVER=' + server + ';DATABASE=' + database + ';UID=' + username + ';TrustServerCertificate=True;PWD=' + password)
+driver = '{ODBC Driver 17 for SQL Server}'
+# Create the SQLAlchemy database URI for SQL Server
+db_uri = f'mssql+pyodbc://{username}:{password}@{server}/{database}?driver={driver}'
+
+# Configure Flask to use SQLAlchemy with the URI for SQL Server
+app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+# Create the SQLAlchemy instance
+db = SQLAlchemy(app)
+
+# Define your database models as usual using the db instance
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(80), unique=True, nullable=False)
+    email = db.Column(db.String(120), unique=True, nullable=False)
+
 # Generate fake data for the Occupants table
 fake = Faker()
 age_mean = 24
@@ -31,3 +52,11 @@ for i in range(1000):
 
 # Close the database connection
 cnxn.close()
+
+# Example route that uses the database
+@app.route('/')
+def hello_world():
+    # Query the User table and return the usernames
+    users = User.query.all()
+    usernames = [user.username for user in users]
+    return f'Hello, {", ".join(usernames)}!'
