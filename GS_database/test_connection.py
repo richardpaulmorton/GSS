@@ -16,7 +16,7 @@ engine = create_engine(connection_string)
 conn = engine.connect()
 
 # Test the connection by executing a simple query
-query = text('SELECT * FROM dbo.Occupants')
+query = text('SELECT * FROM dbo.Plants')
 result = conn.execute(query)
 
 # Loop through the result set and print each row
