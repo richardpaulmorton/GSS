@@ -74,10 +74,12 @@ import_order = data_df.columns.tolist()
 
 # Loop over rows in dataframe and insert into database
 rows = []
-for i, row in enumerate(rows):
-    row_tuple = tuple(row)
-    insert_query = f"INSERT INTO {table_name} ({', '.join(data_df.columns)}) VALUES ({', '.join(['?' for i in range(len(data_df.columns))])})"
-    print(f"Row {i + 1}: {', '.join(str(val) for val in row_tuple)}")
+for row in data_df.itertuples(index=False):
+    row_dict = dict(row._asdict())
+    row_tuple = tuple(row_dict.values())
+    rows.append(row_tuple)
+    insert_query = f"INSERT INTO {table_name} ({', '.join(row_dict.keys())}) VALUES ({', '.join(['?' for i in range(len(row_dict))])})"
+    print(f"Row {row_dict['index'] + 1}: {row_tuple}")
     confirm_import = input("Do you want to import this row? (y/n): ")
     if confirm_import.lower() == 'y':
         cnxn.execute(insert_query, row_tuple)
