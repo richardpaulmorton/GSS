@@ -1,7 +1,7 @@
 import pandas as pd
 import time
 import pyodbc
-from sqlalchemy import create_engine, text, Table, Column, Integer, String
+from sqlalchemy import create_engine, text, Table, Column, Integer, String, MetaData, bindparam
 
 
 def get_data_types(data_df):
@@ -63,14 +63,21 @@ while True:
 engine = create_engine(connection_string)
 cnxn = engine.connect()
 
-# Create table in database
-create_table_query = f"CREATE TABLE {table_name} (id INT IDENTITY(1,1) PRIMARY KEY"
-for col in data_df.columns:
-    create_table_query += f", {col} {data_types[col]}"
-create_table_query += ")"
-cnxn.execute(text(create_table_query))
+# Check if the table already exists, and append data to it if it does
+metadata = MetaData()
+metadata.reflect(bind=engine)
+if table_name in metadata.tables:
+    table = Table(table_name, metadata, autoload=True)
+    import_order = table.columns.keys()
+else:
+    import_order = data_df.columns
 
-import_order = data_df.columns.tolist()
+    # Create table in database
+    table = Table(table_name, metadata, Column('id', Integer, primary_key=True, autoincrement=True))
+    for col in data_df.columns:
+        table.append_column(Column(col, eval(data_types[col])))
+    table.create(engine)
+
 
 # Loop over rows in dataframe and insert into database
 rows = []
@@ -78,17 +85,46 @@ for row in data_df.itertuples(index=False):
     row_dict = dict(row._asdict())
     row_tuple = tuple(row_dict.values())
     rows.append(row_tuple)
-    insert_query = f"INSERT INTO {table_name} ({', '.join(row_dict.keys())}) VALUES ({', '.join(['?' for i in range(len(row_dict))])})"
-    print(f"Row {row_dict['index'] + 1}: {row_tuple}")
-    confirm_import = input("Do you want to import this row? (y/n): ")
-    if confirm_import.lower() == 'y':
-        cnxn.execute(insert_query, row_tuple)
+    
+    # Prepare the insert query with bind parameters
+    insert_query = f"INSERT INTO {table_name} ({', '.join(row_dict.keys())}) VALUES ({', '.join([':' + str(key) for key in row_dict.keys()])})"
+    query = text(insert_query).bindparams(*[bindparam(key, value) for key, value in row_dict.items()])
+    
+   # Check if the row already exists in the database
+    select_query = f"SELECT * FROM {table_name}{create_where_clause(row_dict)}"
+    result = cnxn.execute(select_query).fetchone()
+
+    # If the row exists, compare the differences and print them
+    if result:
+        result_dict = dict(zip(row_dict.keys(), result[1:])) # Exclude the 'id' column from the comparison
+        differences = [f"{key}: (database) {result_dict[key]} != (CSV) {row_dict[key]}" for key in row_dict if result_dict[key] != row_dict[key]]
+        if differences:
+            print(f"Row already exists in the database, but there are differences:")
+            print("\n".join(differences))
+            confirm_overwrite = input("Do you want to overwrite the row? (y/n): ")
+            if confirm_overwrite.lower() == 'y':
+                # Overwrite the row by updating the existing row
+                set_clause = ", ".join([f"{key} = :{key}" for key in row_dict.keys()])
+                update_query = f"UPDATE {table_name} SET {set_clause}{create_where_clause(row_dict)}"
+                cnxn.execute(text(update_query).bindparams(*[bindparam(key, value) for key, value in row_dict.items()]))
+        else:
+            print("Row already exists in the database with the same values.")
+    else:
+        print(f"{', '.join(str(val) for val in row_tuple)}")
+        confirm_import = input("Do you want to import this row? (y/n): ")
+        if confirm_import.lower() == 'y':
+            cnxn.execute(query)
     time.sleep(0.5)
 
 
-
 # Commit changes to database and close connection
-cnxn.commit()
-cnxn.close()
-
-print('Data successfully loaded into database!')
+try:
+    print("Committing changes to the database...")
+    cnxn.commit()
+    print('Data successfully loaded into database!')
+except Exception as e:
+    print(f"An error occurred while trying to commit changes: {e}")
+finally:
+    print("Closing the database connection...")
+    cnxn.close()
+    print("Database connection closed.")

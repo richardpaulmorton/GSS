@@ -13,4 +13,19 @@ Radishes,root,"seedling,vegetative,mature","4-6,6-10,10-21",16,2,0.1,0.2,0.02,0.
 Turnips,root,"seedling,vegetative,mature","5-7,7-14,14-35",28,3,0.1,0.3,0.03,0.4
 Carrots,root,"seedling,vegetative,root formation,mature","7-10,14-21,21-28,28-70",41,2,0.2,0.3,0.04,0.5
 Beets,root,"seedling,vegetative,root formation,mature","7-10,14-21,21-28,28-56",43,3,0.4,0.5,0.05,0.6
-
+Parsley,leafy_green,"seedling,vegetative,mature","14-21,21-28,28-70",36,2,0.3,0.3,0.08,0.5
+Cilantro,leafy_green,"seedling,vegetative,mature","14-21,21-28,28-42",23,2,0.2,0.3,0.05,0.4
+Bok choy,leafy_green,"seedling,vegetative,mature","10-14,14-28,28-50",13,1,0.1,0.2,0.02,0.2
+Collard greens,leafy_green,"seedling,vegetative,mature","10-14,14-28,28-60",25,2,0.2,0.4,0.04,0.3
+Fennel,leafy_green,"seedling,vegetative,mature","14-21,21-42,42-70",31,2,0.2,0.3,0.05,0.5
+Celery,stalk,"seedling,vegetative,mature","14-21,21-42,42-70",16,1,0.1,0.2,0.02,0.3
+Asparagus,stalk,"seedling,vegetative,mature","14-21,21-42,42-70",20,1,0.2,0.2,0.03,0.3
+Leeks,stalk,"seedling,vegetative,mature","14-21,21-42,42-70",61,1,0.1,0.3,0.04,0.5
+Rhubarb,stalk,"seedling,vegetative,mature","14-21,21-42,42-70",21,1,0.1,0.2,0.02,0.3
+Cauliflower,flowering,"seedling,vegetative,mature","14-21,21-42,42-70",25,1,0.2,0.3,0.03,0.4
+Brussels sprouts,flowering,"seedling,vegetative,mature","14-21,21-42,42-70",43,2,0.3,0.4,0.05,0.5
+Cabbage,flowering,"seedling,vegetative,mature","14-21,21-42,42-70",25,1,0.1,0.2,0.03,0.4
+Artichoke,flowering,"seedling,vegetative,mature","21-28,28-56,56-84",47,1,0.2,0.3,0.04,0.5
+Sweet potatoes,root,"seedling,vegetative,root formation,mature","21-28,28-56,56-84,84-112",86,4,0.4,0.5,0.06,0.8
+Onions,bulb,"seedling,vegetative,mature","14-21,21-42,42-100",40,2,0.1,0.3,0.03,0.5
+Garlic,bulb,"seedling,vegetative,mature","14-21,21-42,42-70",149,2,0.2,0.4,0.05
